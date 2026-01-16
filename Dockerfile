@@ -3,14 +3,16 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copy package.json only (not package-lock.json to avoid auth issues)
+COPY package.json ./
 
 # Install dependencies
-# Ensure we're using public registry and clear any auth
-RUN npm config set registry https://registry.npmjs.org/ && \
-    rm -f /root/.npmrc && \
-    npm ci
+# Clear all npm config and use public registry
+RUN rm -rf /root/.npmrc /root/.npm && \
+    npm config set registry https://registry.npmjs.org/ && \
+    npm config delete //registry.npmjs.org/:_authToken || true && \
+    npm config delete //registry.npmjs.org/:always-auth || true && \
+    npm install --no-audit --no-fund --legacy-peer-deps
 
 # Copy source code
 COPY . .
