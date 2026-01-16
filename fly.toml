@@ -7,6 +7,8 @@ app = "portfolio-guilherme"
 primary_region = "iad"
 
 [build]
+  builder = "dockerfile"
+  dockerfile = "Dockerfile"
 
 [http_service]
   internal_port = 80
