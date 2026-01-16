@@ -1,22 +1,23 @@
-# fly.toml app configuration file generated for portfolio on 2024-01-01T00:00:00Z
+# fly.toml app configuration file generated for gtrombini-portfolio on 2026-01-16T18:24:27Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "portfolio-guilherme"
-primary_region = "iad"
+app = 'gtrombini-portfolio'
+primary_region = 'iad'
 
 [build]
 
 [http_service]
   internal_port = 80
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
 
 [[vm]]
-  memory_mb = 256
-  cpu_kind = "shared"
+  memory = '1gb'
+  cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 1024
